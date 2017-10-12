@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-demo-form-sku-with-builder',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./demo-form-sku-with-builder.component.css']
 })
 export class DemoFormSkuWithBuilderComponent implements OnInit {
+  myForm: FormGroup;
+  sku: AbstractControl;
 
-  constructor() { }
+  constructor(fb: FormBuilder) {
+    this.myForm = fb.group({
+      'sku': ['', Validators.required]
+    });
+
+    this.sku = this.myForm.controls['sku'];
+  }
 
   ngOnInit() {
   }
 
+  onSubmit(value: string): void {
+    console.log('You submitted: ', value);
+  }
 }
